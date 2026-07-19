@@ -1,10 +1,10 @@
 services:
   mysql:
-    image: 'mysql:latest'
+    image: 'mysql:8'
     environment:
-      - 'MYSQL_DATABASE=mydatabase'
-      - 'MYSQL_PASSWORD=secret'
-      - 'MYSQL_ROOT_PASSWORD=verysecret'
-      - 'MYSQL_USER=myuser'
+      - 'MYSQL_DATABASE=basicsSpringdb'
+      - 'MYSQL_PASSWORD=password'
+      - 'MYSQL_ROOT_PASSWORD=password'
+      - 'MYSQL_USER=basicsSpring'
     ports:
-      - '3306'
+      - '3306:3306'

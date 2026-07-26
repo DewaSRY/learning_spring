@@ -2,40 +2,32 @@ package com.sdewa.BasicSpring.services;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.ArrayList;
-import java.time.LocalDateTime;
 
-import org.springframework.beans.factory.config.ConfigurableBeanFactory;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
 import com.sdewa.BasicSpring.models.BeverageCreateRequest;
 import com.sdewa.BasicSpring.models.BeverageEntity;
+import com.sdewa.BasicSpring.repositories.BeverageRepository;
+
+import lombok.RequiredArgsConstructor;
 
 @Service
-@Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
+@RequiredArgsConstructor
 public class BeverageServicesImpl implements BeverageServices {
 
-    private List<BeverageEntity> beverages;
-
-    public BeverageServicesImpl() {
-        // Initialize the beverages list
-        this.beverages = new ArrayList<>();
-    }
+    private final BeverageRepository beverageRepository;
 
     @Override
     public Optional<BeverageEntity> getBeverageById(Long id) {
-
-
-        return beverages.stream().filter(b -> b.getId().equals(id)).findFirst();
+        return beverageRepository.findById(id);
     }
-
 
     @Override
     public Optional<BeverageEntity> deleteBeverage(Long id) {
-        Optional<BeverageEntity> beverage = getBeverageById(id);
-        beverage.ifPresent(b -> beverages.remove(b));
-        return beverage;
+        return beverageRepository.findById(id).map(existing -> {
+            beverageRepository.delete(existing);
+            return existing;
+        });
     }
 
     @Override
@@ -44,30 +36,23 @@ public class BeverageServicesImpl implements BeverageServices {
                 .name(beverage.getName())
                 .description(beverage.getDescription())
                 .number(beverage.getNumber())
-                .id((long) (beverages.size() + 1))
-                .createdAt(LocalDateTime.now()) 
                 .build();
-
-        beverages.add(newBeverage);
-        return Optional.of(newBeverage);
+        return Optional.of(beverageRepository.save(newBeverage));
     }
 
     @Override
     public Optional<BeverageEntity> updateBeverage(Long id, BeverageCreateRequest beverage) {
-        Optional<BeverageEntity> existingBeverageOpt = getBeverageById(id);
-        if (existingBeverageOpt.isPresent()) {
-            BeverageEntity existingBeverage = existingBeverageOpt.get();
-            existingBeverage.setName(beverage.getName());
-            existingBeverage.setDescription(beverage.getDescription());
-            existingBeverage.setNumber(beverage.getNumber());
-            return Optional.of(existingBeverage);
-        }
-        return Optional.empty();
+        return beverageRepository.findById(id).map(existing -> {
+            existing.setName(beverage.getName());
+            existing.setDescription(beverage.getDescription());
+            existing.setNumber(beverage.getNumber());
+            return beverageRepository.save(existing);
+        });
     }
 
     @Override
     public List<BeverageEntity> getBeverages() {
-        return beverages;
+        return beverageRepository.findAll();
     }
 
 }

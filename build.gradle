@@ -36,7 +36,6 @@ dependencies {
 
 	// Main web dependency
     implementation 'org.springframework.boot:spring-boot-starter-web' 
-    // or spring-boot-starter-webmvc
 
     // Testing dependencies
 	testImplementation 'org.springframework.boot:spring-boot-starter-security-test'
@@ -64,6 +63,9 @@ dependencies {
 
 	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:3.0.3'
     implementation 'com.jayway.jsonpath:json-path:3.0.0'
+
+	// Source: https://mvnrepository.com/artifact/com.opencsv/opencsv
+	implementation group: 'com.opencsv', name: 'opencsv', version: '5.12.0'	
 }
 
 tasks.named('test') {

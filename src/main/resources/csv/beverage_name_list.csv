@@ -1,0 +1,38 @@
+Category,Beverage Name,Type,Main Ingredient
+Hot Drinks,Espresso,Coffee,Coffee Beans
+Hot Drinks,Cappuccino,Coffee,Coffee Beans & Milk
+Hot Drinks,Caffe Latte,Coffee,Coffee Beans & Milk
+Hot Drinks,Americano,Coffee,Coffee Beans & Water
+Hot Drinks,Matcha Latte,Tea,Matcha Powder & Milk
+Hot Drinks,Chai Latte,Tea,Spiced Tea & Milk
+Hot Drinks,Earl Grey,Tea,Black Tea & Bergamot
+Hot Drinks,Green Tea,Tea,Camellia Sinensis Leaves
+Hot Drinks,Hot Chocolate,Cocoa,Cocoa Powder & Milk
+Cold Drinks,Iced Coffee,Coffee,Coffee Beans & Ice
+Cold Drinks,Iced Tea,Tea,Tea Leaves & Ice
+Cold Drinks,Lemonade,Juice,Lemon Juice & Sugar
+Cold Drinks,Orange Juice,Juice,Oranges
+Cold Drinks,Apple Cider,Juice,Apples
+Cold Drinks,Mango Smoothie,Smoothie,Mango & Yogurt
+Cold Drinks,Strawberry Milkshake,Milkshake,Strawberries & Ice Cream
+Soft Drinks,Cola,Carbonated,Carbonated Water & Syrup
+Soft Drinks,Diet Cola,Carbonated,Carbonated Water & Sweetener
+Soft Drinks,Ginger Ale,Carbonated,Ginger Flavor & Carbonated Water
+Soft Drinks,Root Beer,Carbonated,Sassafras Flavor & Carbonated Water
+Soft Drinks,Tonic Water,Carbonated,Quinine & Carbonated Water
+Water,Still Water,Water,Water
+Water,Sparkling Water,Water,Carbonated Water
+Water,Coconut Water,Water,Coconut Liquid
+Alcoholic,Lager,Beer,Malted Barley & Hops
+Alcoholic,IPA (India Pale Ale),Beer,Hops & Malted Barley
+Alcoholic,Stout,Beer,Roasted Barley
+Alcoholic,Cabernet Sauvignon,Wine,Grapes
+Alcoholic,Chardonnay,Wine,Grapes
+Alcoholic,Prosecco,Wine,Grapes
+Alcoholic,Margarita,Cocktail,Tequila & Lime Juice
+Alcoholic,Mojito,Cocktail,Rum & Mint
+Alcoholic,Old Fashioned,Cocktail,Bourbon & Bitters
+Alcoholic,Vodka Tonic,Cocktail,Vodka & Tonic Water
+Mocktails,Shirley Temple,Mocktail,Ginger Ale & Grenadine
+Mocktails,Virgin Mojito,Mocktail,Mint & Lime & Soda Water
+Mocktails,No-Groni,Mocktail,Non-Alcoholic Spirits

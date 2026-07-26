@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import java.util.List;
 
@@ -39,7 +40,7 @@ public class AccountController {
     @PostMapping
     public ResponseEntity<AccountsEntity> createAccount(@RequestBody AccountCreateRequest account) {
         return accountServices.createAccount(account)
-                .map(ResponseEntity::ok)
+                .map(createdAccount -> ResponseEntity.status(HttpStatus.CREATED).body(createdAccount))
                 .orElseGet(() -> ResponseEntity.badRequest().build());
     }
 

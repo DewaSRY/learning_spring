@@ -12,10 +12,6 @@ import org.springframework.stereotype.Service;
 import com.sdewa.BasicSpring.models.BeverageCreateRequest;
 import com.sdewa.BasicSpring.models.BeverageEntity;
 
-
-
-
-
 @Service
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
 public class BeverageServicesImpl implements BeverageServices {

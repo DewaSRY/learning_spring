@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import com.sdewa.BasicSpring.exception.CommonContentNotFound;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import java.util.List;
@@ -34,7 +35,7 @@ public class AccountController {
     public ResponseEntity<AccountsEntity> getAccountById(@PathVariable Long id) {
         return accountServices.getAccountById(id)
                 .map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.notFound().build());
+                .orElseThrow(() -> new CommonContentNotFound("Account not found with id: " + id));
     }
 
     @PostMapping

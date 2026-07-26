@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sdewa.BasicSpring.models.BeverageEntity;
+import com.sdewa.BasicSpring.exception.CommonContentNotFound;
 import com.sdewa.BasicSpring.models.BeverageCreateRequest;
 import com.sdewa.BasicSpring.services.BeverageServices;
 
@@ -37,7 +38,7 @@ public class BeverageController {
     public ResponseEntity<BeverageEntity> getBeverageById(@PathVariable Long id) {
         Optional<BeverageEntity> beverage = beverageServices.getBeverageById(id);
         return beverage.map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.notFound().build());
+                .orElseThrow(() -> new CommonContentNotFound("Beverage not found with id: " + id));
     }
 
     @PostMapping

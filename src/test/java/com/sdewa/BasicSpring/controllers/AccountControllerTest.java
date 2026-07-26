@@ -64,6 +64,16 @@ public class AccountControllerTest {
     }
 
     @Test
+    public void testGetAccountByIdNotFound() throws Exception {
+            Long accountId = 1L;
+            when(accountServices.getAccountById(accountId)).thenReturn(Optional.empty());
+
+            mockMvc.perform(get(BASE_URL + "/" + accountId)
+                            .accept(MediaType.APPLICATION_JSON))
+                            .andExpect(status().isNotFound());
+    }
+
+    @Test
     public void testCreateAccount() throws Exception {
         AccountCreateRequest mockAccountRequest = AccountControllerMock.getMockAccountController("Mock User", "12345");
         AccountsEntity mockAccountEntity = AccountControllerMock

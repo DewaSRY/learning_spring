@@ -137,7 +137,7 @@ public class BeverageControllerTest {
                 mockMvc.perform(post("/api/v1/beverages")
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(objectMapper.writeValueAsString(requestBody)))
-                                .andExpect(status().isOk())
+                                .andExpect(status().isCreated())
                                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                                 .andExpect(jsonPath("$.id").value(3))
                                 .andExpect(jsonPath("$.name").value("Fanta"))

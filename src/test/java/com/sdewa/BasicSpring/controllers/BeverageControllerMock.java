@@ -10,6 +10,7 @@ public class BeverageControllerMock {
         return BeverageCreateRequest.builder()
                 .name("Mock Beverage")
                 .description("This is a mock beverage for testing purposes.")
+                .number("12345")
                 .build();
     }
 
@@ -17,6 +18,7 @@ public class BeverageControllerMock {
         return BeverageCreateRequest.builder()
                 .name("Mock Beverage with ID")
                 .description("This is a mock beverage with ID for testing purposes.")
+                .number("12345")
                 .build();
     }
 

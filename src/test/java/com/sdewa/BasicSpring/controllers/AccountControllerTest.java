@@ -16,12 +16,14 @@ import com.sdewa.BasicSpring.services.AccountServices;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.when;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.util.Optional;
@@ -88,6 +90,23 @@ public class AccountControllerTest {
     }
 
     @Test
+    public void testCreateAccountValidationFailure() throws Exception {
+            AccountCreateRequest invalidRequest = AccountCreateRequest.builder()
+                            .name("")
+                            .number("")
+                            .build();
+
+            mockMvc.perform(post(BASE_URL)
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .content(objectMapper.writeValueAsString(invalidRequest)))
+                            .andExpect(status().isBadRequest())
+                            .andExpect(jsonPath("$.name").exists())
+                            .andExpect(jsonPath("$.number").exists());
+
+            verifyNoInteractions(accountServices);
+    }
+
+    @Test
     public void testUpdateAccount() throws Exception {
         Long accountId = 1L;
         AccountCreateRequest mockAccountRequest = AccountControllerMock.getMockAccountController("Updated User",
@@ -102,6 +121,24 @@ public class AccountControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(mockAccountRequest)))
                 .andExpect(status().isOk());
+    }
+
+    @Test
+    public void testUpdateAccountValidationFailure() throws Exception {
+            Long accountId = 1L;
+            AccountCreateRequest invalidRequest = AccountCreateRequest.builder()
+                            .name("ab")
+                            .number("12")
+                            .build();
+
+            mockMvc.perform(put(BASE_URL + "/" + accountId)
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .content(objectMapper.writeValueAsString(invalidRequest)))
+                            .andExpect(status().isBadRequest())
+                            .andExpect(jsonPath("$.name").exists())
+                            .andExpect(jsonPath("$.number").exists());
+
+            verifyNoInteractions(accountServices);
     }
 
     @Test

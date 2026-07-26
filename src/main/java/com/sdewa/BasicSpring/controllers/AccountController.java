@@ -19,6 +19,8 @@ import com.sdewa.BasicSpring.models.AccountsEntity;
 import com.sdewa.BasicSpring.models.AccountCreateRequest;
 import com.sdewa.BasicSpring.services.AccountServices;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/api/v1/accounts")
 @AllArgsConstructor
@@ -39,7 +41,7 @@ public class AccountController {
     }
 
     @PostMapping
-    public ResponseEntity<AccountsEntity> createAccount(@RequestBody AccountCreateRequest account) {
+    public ResponseEntity<AccountsEntity> createAccount(@Valid @RequestBody AccountCreateRequest account) {
         return accountServices.createAccount(account)
                 .map(createdAccount -> ResponseEntity.status(HttpStatus.CREATED).body(createdAccount))
                 .orElseGet(() -> ResponseEntity.badRequest().build());
@@ -47,7 +49,7 @@ public class AccountController {
 
     @PutMapping("/{id}")
     public ResponseEntity<AccountsEntity> updateAccount(@PathVariable Long id,
-            @RequestBody AccountCreateRequest account) {
+            @Valid @RequestBody AccountCreateRequest account) {
         return accountServices.updateAccount(id, account)
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());

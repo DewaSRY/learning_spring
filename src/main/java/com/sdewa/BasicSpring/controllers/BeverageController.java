@@ -19,6 +19,7 @@ import com.sdewa.BasicSpring.exception.CommonContentNotFound;
 import com.sdewa.BasicSpring.models.BeverageCreateRequest;
 import com.sdewa.BasicSpring.services.BeverageServices;
 
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 
 @RestController
@@ -43,7 +44,7 @@ public class BeverageController {
 
     @PostMapping
     public ResponseEntity<BeverageEntity> createBeverage(
-            @RequestBody BeverageCreateRequest beverageCreateRequest) {
+            @Valid @RequestBody BeverageCreateRequest beverageCreateRequest) {
 
         return beverageServices.createBeverage(beverageCreateRequest)
                 .map(beverage -> ResponseEntity.status(HttpStatus.CREATED).body(beverage))
@@ -51,7 +52,8 @@ public class BeverageController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<BeverageEntity> updateBeverage(@PathVariable Long id,
+    public ResponseEntity<BeverageEntity> updateBeverage(
+                    @Valid @PathVariable Long id,
             @RequestBody BeverageCreateRequest beverageCreateRequest) {
         Optional<BeverageEntity> updatedBeverage = beverageServices.updateBeverage(id, beverageCreateRequest);
         return updatedBeverage.map(ResponseEntity::ok)

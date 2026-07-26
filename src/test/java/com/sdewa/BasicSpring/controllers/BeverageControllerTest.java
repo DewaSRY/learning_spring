@@ -16,12 +16,14 @@ import com.sdewa.BasicSpring.services.BeverageServices;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.when;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.util.Optional;
@@ -86,6 +88,25 @@ public class BeverageControllerTest {
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(objectMapper.writeValueAsString(mockBeverageRequest)))
                                 .andExpect(status().isCreated());
+        }
+
+        @Test
+        public void testCreateBeverageValidationFailure() throws Exception {
+                BeverageCreateRequest invalidRequest = BeverageCreateRequest.builder()
+                                .name("")
+                                .description("ab")
+                                .number("")
+                                .build();
+
+                mockMvc.perform(post(BASE_URL)
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(objectMapper.writeValueAsString(invalidRequest)))
+                                .andExpect(status().isBadRequest())
+                                .andExpect(jsonPath("$.name").exists())
+                                .andExpect(jsonPath("$.description").exists())
+                                .andExpect(jsonPath("$.number").exists());
+
+                verifyNoInteractions(beverageServices);
         }
 
         @Test

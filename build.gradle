@@ -70,4 +70,19 @@ dependencies {
 
 tasks.named('test') {
 	useJUnitPlatform()
+	// Exclude any test file ending in TestIt
+	exclude '**/*TestIt.*'
+}
+
+tasks.register('integrationTest', Test) {
+    description = 'Runs integration tests ending with TestIt.'
+    group = 'verification'
+
+    useJUnitPlatform()
+    
+    // Include ONLY TestIt files
+    include '**/*TestIt.*'
+
+    // Ensure tests always re-run if invoked
+    outputs.upToDateWhen { false }
 }

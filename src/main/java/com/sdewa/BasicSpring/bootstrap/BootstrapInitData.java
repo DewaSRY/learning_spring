@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import com.sdewa.BasicSpring.services.BeverageServices;
 // import com.sdewa.BasicSpring.models.AccountCreateRequest;
 import com.sdewa.BasicSpring.models.BeverageCreateRequest;
+import com.sdewa.BasicSpring.models.BeverageEntity;
 // import com.sdewa.BasicSpring.services.AccountServices;
 
 @Component
@@ -25,10 +26,12 @@ public class BootstrapInitData implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        // dummyAccounts(10);
-        // dummyBeverages(10);
+        List<BeverageEntity> beverages = bootstrapService.getBeverages();
 
-        dummyBeveragesFromCSV("src/main/resources/beverage_name_list.csv");
+        if (beverages.isEmpty()) {
+            dummyBeveragesFromCSV("src/main/resources/csv/beverage_name_list.csv");
+
+        }
     }
 
     private void dummyBeveragesFromCSV(String csvFilePath) {

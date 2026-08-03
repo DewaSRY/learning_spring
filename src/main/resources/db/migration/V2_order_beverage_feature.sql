@@ -17,6 +17,23 @@ CREATE TABLE IF NOT EXISTS order_items (
     FOREIGN KEY (beverage_id) REFERENCES beverage(id)
 );
 
+CREATE OR REPLACE VIEW `order_views` AS
+SELECT
+    o.id as order_id, 
+    o.number as order_number,
+    o.notes as order_notes,
+    o.account_id as account_id,
+    o.created_at as order_created_at,
+    a.id as account_id,
+    a.name as account_name
+FROM `order` o
+JOIN account a ON o.account_id = a.id;
 
-
-
+CREATE OR REPLACE VIEW `order_item_views` AS
+SELECT 
+    oi.order_id as order_id,
+    oi.qty as order_item_qty,
+    b.id as beverage_id,
+    b.name as beverage_name
+FROM order_items oi
+JOIN beverage b ON oi.beverage_id = b.id;
